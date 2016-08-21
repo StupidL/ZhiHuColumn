@@ -1,73 +1,33 @@
 package me.stupideme.zhihucolumn.bean;
 
-import com.google.gson.annotations.SerializedName;
 
 /**
  * Created by StupidL on 2016/8/20.
  */
 
 public class Article {
-    @SerializedName("rating")
+    private boolean isTitleImageFullScreen;
     private String rating;
-
-    @SerializedName("sourceUrl")
     private String sourceUrl;
-
-    @SerializedName("publishedTime")
     private String publishedTime;
-
-    @SerializedName("links")
     private Link links;
-
-    @SerializedName("author")
     private Author author;
-
-    @SerializedName("column")
+    private String url;
+    private String title;
+    private String titleImage;
     private Column column;
-
-    @SerializedName("topics")
     private Topic[] topics;
 
-    @SerializedName("title")
-    private String title;
-
-    @SerializedName("titleImage")
-    private String titleImage;
-
-    @SerializedName("summary")
     private String summary;
-
-    @SerializedName("content")
     private String content;
-
-    @SerializedName("url")
-    private String url;
-
-    @SerializedName("state")
     private String state;
-
-    @SerializedName("href")
     private String href;
-
-    @SerializedName("meta")
     private Meta meta;
-
-    @SerializedName("commentPermission")
     private String commentPermission;
-
-    @SerializedName("snapshotUrl")
     private String snapshotUrl;
-
-    @SerializedName("canComment")
     private boolean canComment;
-
-    @SerializedName("slug")
     private String slug;
-
-    @SerializedName("commentsCount")
     private int commentsCount;
-
-    @SerializedName("likesCount")
     private int likesCount;
 
     public Article() {
@@ -239,5 +199,13 @@ public class Article {
 
     public void setMeta(Meta meta) {
         this.meta = meta;
+    }
+
+    public boolean isTitleImageFullScreen() {
+        return isTitleImageFullScreen;
+    }
+
+    public void setTitleImageFullScreen(boolean titleImageFullScreen) {
+        isTitleImageFullScreen = titleImageFullScreen;
     }
 }

@@ -7,9 +7,9 @@ package me.stupideme.zhihucolumn.bean;
 public class Column {
     private int followerCount;          //关注着数量
     private String description;         //简介
-    private Author author;              //创造者
+    private Author creator;             //创造者
     private Avatar avatar;              //头像
-    private Topic[] topics;            //话题
+    private Topic[] topics;             //话题
     private String href;
     private boolean acceptSubmission;
     private String slug;
@@ -37,12 +37,12 @@ public class Column {
         this.description = description;
     }
 
-    public Author getAuthor() {
-        return author;
+    public Author getCreator() {
+        return creator;
     }
 
-    public void setAuthor(Author author) {
-        this.author = author;
+    public void setCreator(Author creator) {
+        this.creator = creator;
     }
 
     public Topic[] getTopics() {

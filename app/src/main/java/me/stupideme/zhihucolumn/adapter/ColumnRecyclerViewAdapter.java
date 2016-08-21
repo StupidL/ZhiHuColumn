@@ -44,7 +44,7 @@ public class ColumnRecyclerViewAdapter extends RecyclerView.Adapter<ColumnRecycl
         Column model = mList.get(position);
         holder.setIsRecyclable(true);
         Glide.with(mContext).load(model.getAvatar().getTemplate()).into(holder.avatar);
-        holder.author.setText(model.getAuthor().getName());
+        holder.author.setText(model.getCreator().getName());
         holder.title.setText(model.getName());
         holder.info.setText(model.getFollowerCount() + " 关注\t" + model.getPostCount() + " 文章");
         holder.summary.setText(model.getDescription());

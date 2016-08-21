@@ -1,6 +1,7 @@
 package me.stupideme.zhihucolumn.ui;
 
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -10,6 +11,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.Response;
+
+import java.io.IOException;
+
 import me.stupideme.zhihucolumn.App;
 import me.stupideme.zhihucolumn.R;
 import me.stupideme.zhihucolumn.adapter.ArticleRecyclerViewAdapter;
@@ -17,6 +24,7 @@ import me.stupideme.zhihucolumn.adapter.ArticleRecyclerViewAdapter;
 public class ArticlesFragment extends Fragment {
 
     private ArticleRecyclerViewAdapter mAdapter;
+    private RecyclerView mRecyclerView;
 
     public ArticlesFragment() {
         // Required empty public constructor
@@ -35,6 +43,8 @@ public class ArticlesFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
         }
+
+        new GetArticlesTask().execute();
     }
 
     @Override
@@ -42,11 +52,37 @@ public class ArticlesFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.fragment_articals, container, false);
-        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recycler_all_articles);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setAdapter(mAdapter);
+        mRecyclerView = (RecyclerView) view.findViewById(R.id.recycler_all_articles);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        mRecyclerView.setAdapter(mAdapter);
         return view;
+    }
+
+    public class GetArticlesTask extends AsyncTask<Void,Void,Void>{
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            Request request = new Request.Builder().url("http://zhuanlan.zhihu.com/api/columns/wooyun/posts?limit=2&offset=0").build();
+            try {
+                Response response = new OkHttpClient().newCall(request).execute();
+                if (response.isSuccessful()) {
+                    System.out.println(response.code());
+                    System.out.println(response.body().string());
+                    //TODO: parse Json
+
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result){
+            mAdapter.notifyDataSetChanged();
+        }
     }
 
 }

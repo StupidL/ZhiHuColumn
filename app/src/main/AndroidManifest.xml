@@ -33,9 +33,6 @@
             </intent-filter>
         </activity>
 
-        <service
-            android:name=".net.LoadColumnsService"
-            android:exported="false"></service>
     </application>
 
 </manifest>
