@@ -5,22 +5,22 @@ package me.stupideme.zhihucolumn.bean;
  */
 
 public class Meta {
-    private Previous previous;
-    private Next next;
+    private Article previous;
+    private Article next;
 
-    public Previous getPrevious() {
+    public Article getPrevious() {
         return previous;
     }
 
-    public void setPrevious(Previous previous) {
+    public void setPrevious(Article previous) {
         this.previous = previous;
     }
 
-    public Next getNext() {
+    public Article getNext() {
         return next;
     }
 
-    public void setNext(Next next) {
+    public void setNext(Article next) {
         this.next = next;
     }
 

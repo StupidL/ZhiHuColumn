@@ -1,6 +1,7 @@
 package me.stupideme.zhihucolumn.ui;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -23,6 +24,8 @@ public class ArticleDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_article_detail);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle("文章详情");
+        toolbar.setTitleTextColor(Color.WHITE);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -64,7 +67,7 @@ public class ArticleDetailActivity extends AppCompatActivity {
             title.setText(article.getTitle());
         }
         if (timeAndAuthor != null) {
-            timeAndAuthor.setText(article.getAuthor().getName()+"  by  "+article.getPublishedTime());
+            timeAndAuthor.setText(article.getAuthor().getName()+"  于  "+article.getPublishedTime().substring(0,10));
         }
         if (content != null) {
             content.setText(article.getContent());

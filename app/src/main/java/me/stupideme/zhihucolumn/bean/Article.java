@@ -1,6 +1,10 @@
 package me.stupideme.zhihucolumn.bean;
 
 
+import org.w3c.dom.ls.LSException;
+
+import java.util.List;
+
 /**
  * Created by StupidL on 2016/8/20.
  */
@@ -16,7 +20,7 @@ public class Article {
     private String title;
     private String titleImage;
     private Column column;
-    private Topic[] topics;
+    private List<Topic> topics;
 
     private String summary;
     private String content;
@@ -81,11 +85,11 @@ public class Article {
         this.column = column;
     }
 
-    public Topic[] getTopics() {
+    public List<Topic> getTopics() {
         return topics;
     }
 
-    public void setTopics(Topic[] topics) {
+    public void setTopics(List<Topic> topics) {
         this.topics = topics;
     }
 

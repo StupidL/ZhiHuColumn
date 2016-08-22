@@ -12,6 +12,7 @@ public class Author {
     private String description;
     private String profileUrl;
     private String slug;
+    private boolean isOrg;
 
     public String getName() {
         return name;
@@ -67,5 +68,13 @@ public class Author {
 
     public void setSlug(String slug) {
         this.slug = slug;
+    }
+
+    public boolean isOrg() {
+        return isOrg;
+    }
+
+    public void setOrg(boolean org) {
+        isOrg = org;
     }
 }

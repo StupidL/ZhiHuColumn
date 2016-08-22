@@ -25,7 +25,7 @@ public class ProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profile);
 
         Intent intent = getIntent();
-        int position = intent.getIntExtra("position",0);
+        int position = intent.getIntExtra("position", 0);
         Article article = App.articlesList.get(position);
         Author author = article.getAuthor();
 
@@ -48,7 +48,9 @@ public class ProfileActivity extends AppCompatActivity {
         TextView des = (TextView) findViewById(R.id.user_des);
 
         if (imageView != null) {
-            Glide.with(this).load(author.getAvatar().getTemplate()).into(imageView);
+            String id = author.getAvatar().getId();
+            String url = "https://pic1.zhimg.com/" + id + "_m.jpg";
+            Glide.with(this).load(url).into(imageView);
         }
         if (bio != null) {
             bio.setText(author.getBio());

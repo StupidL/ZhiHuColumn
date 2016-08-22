@@ -1,6 +1,8 @@
 package me.stupideme.zhihucolumn.bean;
 
 
+import java.util.List;
+
 /**
  * Created by StupidL on 2016/8/20.
  */
@@ -9,7 +11,8 @@ public class Column {
     private String description;         //简介
     private Author creator;             //创造者
     private Avatar avatar;              //头像
-    private Topic[] topics;             //话题
+    private List<Topic> topics;             //话题
+    private String activateState;
     private String href;
     private boolean acceptSubmission;
     private String slug;
@@ -19,7 +22,7 @@ public class Column {
     private boolean following;
     private int postCount;
     private boolean canPost;
-    private boolean activateAuthorRequested;
+    private String activateAuthorRequested;
 
     public int getFollowerCount() {
         return followerCount;
@@ -45,11 +48,11 @@ public class Column {
         this.creator = creator;
     }
 
-    public Topic[] getTopics() {
+    public List<Topic> getTopics() {
         return topics;
     }
 
-    public void setTopics(Topic[] topics) {
+    public void setTopics(List<Topic> topics) {
         this.topics = topics;
     }
 
@@ -133,11 +136,19 @@ public class Column {
         this.canPost = canPost;
     }
 
-    public boolean isActivateAuthorRequested() {
+    public String  isActivateAuthorRequested() {
         return activateAuthorRequested;
     }
 
-    public void setActivateAuthorRequested(boolean activateAuthorRequested) {
+    public void setActivateAuthorRequested(String  activateAuthorRequested) {
         this.activateAuthorRequested = activateAuthorRequested;
+    }
+
+    public String getActivateState() {
+        return activateState;
+    }
+
+    public void setActivateState(String activateState) {
+        this.activateState = activateState;
     }
 }

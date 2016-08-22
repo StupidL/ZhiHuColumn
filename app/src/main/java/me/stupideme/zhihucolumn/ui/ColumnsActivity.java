@@ -1,5 +1,6 @@
 package me.stupideme.zhihucolumn.ui;
 
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -9,41 +10,45 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import me.stupideme.zhihucolumn.App;
 import me.stupideme.zhihucolumn.R;
 
 public class ColumnsActivity extends AppCompatActivity {
 
+    private ColumnsFragment mFragment;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        mFragment = new ColumnsFragment();
         getSupportFragmentManager().beginTransaction()
-                .add(R.id.fragment_container,new ColumnsFragment())
+                .add(R.id.fragment_container,mFragment)
                 .commit();
     }
 
     @Override
+    public void onDestroy(){
+        super.onDestroy();
+        App.columnsList.clear();
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 }

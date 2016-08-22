@@ -12,8 +12,8 @@ import me.stupideme.zhihucolumn.bean.Column;
  */
 
 public class App extends Application {
-    public static List<Column> columnsList = new ArrayList<>();
-    public static List<Article> articlesList = new ArrayList<>();
+    public volatile static List<Column> columnsList = new ArrayList<>();
+    public volatile static List<Article> articlesList = new ArrayList<>();
 
     @Override
     public void onCreate() {
