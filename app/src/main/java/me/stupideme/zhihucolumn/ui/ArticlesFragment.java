@@ -1,9 +1,14 @@
 package me.stupideme.zhihucolumn.ui;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,6 +20,7 @@ import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.squareup.okhttp.OkHttpClient;
@@ -26,6 +32,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import me.stupideme.zhihucolumn.App;
@@ -39,6 +46,11 @@ public class ArticlesFragment extends Fragment {
     private RecyclerViewAdapter mAdapter;
     private int imageWidth;
     private String mColumnName;
+    private SwipeRefreshLayout swipeRefreshLayout;
+    private ProgressDialog dialog;
+    private Handler handler;
+    private int limit = 50;
+    private int offset = 0;
 
     public ArticlesFragment() {
         // Required empty public constructor
@@ -51,6 +63,13 @@ public class ArticlesFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        dialog = new ProgressDialog(getActivity());
+        dialog.setTitle("加载数据");
+        dialog.setMessage("正在加载数据，请稍等...");
+        dialog.setCancelable(false);
+        dialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+        dialog.setIndeterminate(true);
+        dialog.show();
         DisplayMetrics metric = new DisplayMetrics();
         WindowManager wm = getActivity().getWindowManager();
         wm.getDefaultDisplay().getMetrics(metric);
@@ -58,7 +77,14 @@ public class ArticlesFragment extends Fragment {
         Bundle bundle = getArguments();
         mColumnName = bundle.getString("columnName");
         mAdapter = new RecyclerViewAdapter(R.layout.item_article, App.articlesList);
+        handler = new Handler();
         new GetArticlesTask().execute();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                dialog.dismiss();
+            }
+        }, 1500);
     }
 
     @Override
@@ -66,6 +92,19 @@ public class ArticlesFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_articals, container, false);
+        swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_to_refresh);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        swipeRefreshLayout.setRefreshing(false);
+                    }
+                }, 2000);
+                swipeRefreshLayout.setRefreshing(true);
+            }
+        });
         RecyclerView mRecyclerView = (RecyclerView) view.findViewById(R.id.recycler_all_articles);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -77,7 +116,7 @@ public class ArticlesFragment extends Fragment {
     }
 
     private void parse(String name) throws IOException, JSONException {
-        String url = ColumnName.BASE_URL + name + "/posts?limit=50&offset=0";
+        String url = ColumnName.BASE_URL + name + "/posts?limit=" + limit + "&offset=" + offset;
         Request request = new Request.Builder().url(url).build();
         Response response = new OkHttpClient().newCall(request).execute();
         String body = response.body().string();
@@ -131,7 +170,14 @@ public class ArticlesFragment extends Fragment {
         @Override
         public void onBindViewHolder(final RecyclerViewAdapter.ViewHolder holder, int position) {
             Article article = mList.get(position);
-            Glide.with(getActivity()).load(article.getTitleImage()).into(holder.image);
+            String url = article.getTitleImage();
+            System.out.println("=====" + position + "====+" + url + "+");
+            if (url == null || url.isEmpty()) {
+                holder.image.setImageResource(R.drawable.background_empty);
+                System.out.println("====null===");
+            } else {
+                Glide.with(getActivity()).load(url).into(holder.image);
+            }
             holder.title.setText(article.getTitle());
             holder.author.setText(article.getAuthor().getName());
             String time = article.getPublishedTime();

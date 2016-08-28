@@ -1,21 +1,30 @@
 package me.stupideme.zhihucolumn.ui;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.TextView;
+
 import com.bumptech.glide.Glide;
+
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+
 import me.stupideme.zhihucolumn.R;
 
 public class SplashActivity extends AppCompatActivity {
@@ -36,7 +45,8 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
 
         final ImageView imageView = (ImageView) findViewById(R.id.splash_image);
-
+        TextView appName = (TextView) findViewById(R.id.app_name);
+        TextView author = (TextView) findViewById(R.id.author_name);
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
@@ -57,8 +67,8 @@ public class SplashActivity extends AppCompatActivity {
         mHandler = new Handler() {
             @Override
             public void handleMessage(Message message) {
-                if (message.what == 0x100){
-                    Bundle bundle= message.getData();
+                if (message.what == 0x100) {
+                    Bundle bundle = message.getData();
                     startImageUrl = bundle.getString("url");
                     try {
                         JSONObject object = new JSONObject(startImageUrl);
@@ -71,16 +81,30 @@ public class SplashActivity extends AppCompatActivity {
             }
         };
 
-        new Thread(runnable).start();
-
-        mRunnable =new Runnable() {
+        mRunnable = new Runnable() {
             @Override
             public void run() {
                 startActivity(new Intent(SplashActivity.this, ColumnsActivity.class));
                 SplashActivity.this.finish();
             }
         };
-        mHandler.postDelayed(mRunnable,2000);
+
+        if (hasNetwork(this)) {
+            new Thread(runnable).start();
+            mHandler.postDelayed(mRunnable, 2000);
+        } else {
+            imageView.setImageResource(R.drawable.splash_network);
+            imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
+            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            appName.setText("SORRY!");
+            author.setText("无网络连接");
+        }
+    }
+
+    public static boolean hasNetwork(Context context) {
+        ConnectivityManager manager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo info = manager.getActiveNetworkInfo();
+        return info != null && info.isAvailable();
     }
 
     @Override

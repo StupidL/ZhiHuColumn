@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -30,20 +31,18 @@ public class ArticleDetailActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        if (toolbar != null) {
-            toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    ArticleDetailActivity.super.onBackPressed();
-                }
-            });
-        }
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ArticleDetailActivity.super.onBackPressed();
+            }
+        });
 
         ImageView titleImage = (ImageView) findViewById(R.id.backdrop);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.article_fab);
         TextView title = (TextView) findViewById(R.id.article_title);
         TextView timeAndAuthor = (TextView) findViewById(R.id.article_time_and_author);
-        TextView content = (TextView) findViewById(R.id.article_content);
+        WebView content = (WebView) findViewById(R.id.article_content);
 
         Intent intent = getIntent();
         final int position = intent.getIntExtra("position", 0);
@@ -67,10 +66,10 @@ public class ArticleDetailActivity extends AppCompatActivity {
             title.setText(article.getTitle());
         }
         if (timeAndAuthor != null) {
-            timeAndAuthor.setText(article.getAuthor().getName()+"  于  "+article.getPublishedTime().substring(0,10));
+            timeAndAuthor.setText(article.getAuthor().getName() + "  于  " + article.getPublishedTime().substring(0, 10));
         }
         if (content != null) {
-            content.setText(article.getContent());
+            content.loadDataWithBaseURL(null, article.getContent(), "text/html", "UTF-8", null);
         }
     }
 }

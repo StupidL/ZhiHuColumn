@@ -12,6 +12,7 @@
         android:layout_height="match_parent"
         android:id="@+id/splash_image"/>
     <TextView
+        android:id="@+id/app_name"
         android:textColor="#ffffff"
         android:layout_marginBottom="80dp"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
@@ -20,6 +21,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
     <TextView
+        android:id="@+id/author_name"
         android:textColor="#ffffff"
         android:layout_marginBottom="40dp"
         android:layout_width="wrap_content"
