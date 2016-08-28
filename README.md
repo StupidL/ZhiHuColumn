@@ -4,7 +4,7 @@ This is a demo to use ZhiHu Column API to create an Android application.
 ## ScreenShots  
 ![one](https://github.com/StupidL/ZhiHuColumn/blob/master/art/final1.PNG)  
 ![two](https://github.com/StupidL/ZhiHuColumn/blob/master/art/final2.PNG)  
-![three](https://github.com/StupidL/ZhiHuColumn/blob/master/art/final3.PNG)  
+![three](https://github.com/StupidL/ZhiHuColumn/blob/master/art/detail.PNG)  
 
 ## Email  
 luozhouyang0528@gmail.com  
