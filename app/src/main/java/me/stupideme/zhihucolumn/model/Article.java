@@ -1,7 +1,5 @@
-package me.stupideme.zhihucolumn.bean;
+package me.stupideme.zhihucolumn.model;
 
-
-import org.w3c.dom.ls.LSException;
 
 import java.util.List;
 
@@ -20,6 +18,7 @@ public class Article {
     private String title;
     private String titleImage;
     private Column column;
+    private String columnName;
     private List<Topic> topics;
 
     private String summary;
@@ -211,5 +210,13 @@ public class Article {
 
     public void setTitleImageFullScreen(boolean titleImageFullScreen) {
         isTitleImageFullScreen = titleImageFullScreen;
+    }
+
+    public String getColumnName() {
+        return columnName;
+    }
+
+    public void setColumnName(String columnName) {
+        this.columnName = columnName;
     }
 }

@@ -1,4 +1,4 @@
-package me.stupideme.zhihucolumn.ui;
+package me.stupideme.zhihucolumn.view;
 
 import android.graphics.Rect;
 import android.support.v7.widget.RecyclerView;

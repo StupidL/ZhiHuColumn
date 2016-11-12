@@ -1,4 +1,4 @@
-package me.stupideme.zhihucolumn.bean;
+package me.stupideme.zhihucolumn.model;
 
 /**
  * Created by StupidL on 2016/8/20.

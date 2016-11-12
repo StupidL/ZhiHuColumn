@@ -1,13 +1,12 @@
-package me.stupideme.zhihucolumn.ui;
+package me.stupideme.zhihucolumn.view;
 
 import android.content.Intent;
 import android.graphics.Color;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
-import me.stupideme.zhihucolumn.App;
 import me.stupideme.zhihucolumn.R;
 
 public class ArticlesActivity extends AppCompatActivity {

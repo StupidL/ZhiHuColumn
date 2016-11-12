@@ -1,4 +1,4 @@
-package me.stupideme.zhihucolumn.ui;
+package me.stupideme.zhihucolumn.view;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -13,9 +13,8 @@ import com.bumptech.glide.Glide;
 import de.hdodenhof.circleimageview.CircleImageView;
 import me.stupideme.zhihucolumn.App;
 import me.stupideme.zhihucolumn.R;
-import me.stupideme.zhihucolumn.bean.Article;
-import me.stupideme.zhihucolumn.bean.Author;
-import me.stupideme.zhihucolumn.bean.Avatar;
+import me.stupideme.zhihucolumn.model.Article;
+import me.stupideme.zhihucolumn.model.Author;
 
 public class ProfileActivity extends AppCompatActivity {
 

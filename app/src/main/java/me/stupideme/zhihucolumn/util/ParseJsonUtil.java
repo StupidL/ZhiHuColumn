@@ -1,18 +1,16 @@
 package me.stupideme.zhihucolumn.util;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import java.util.ArrayList;
-import java.util.List;
-import me.stupideme.zhihucolumn.bean.Article;
-import me.stupideme.zhihucolumn.bean.Author;
-import me.stupideme.zhihucolumn.bean.Avatar;
-import me.stupideme.zhihucolumn.bean.Column;
-import me.stupideme.zhihucolumn.bean.Comment;
-import me.stupideme.zhihucolumn.bean.Link;
-import me.stupideme.zhihucolumn.bean.Meta;
-import me.stupideme.zhihucolumn.bean.Topic;
+
+import me.stupideme.zhihucolumn.model.Article;
+import me.stupideme.zhihucolumn.model.Author;
+import me.stupideme.zhihucolumn.model.Avatar;
+import me.stupideme.zhihucolumn.model.Column;
+import me.stupideme.zhihucolumn.model.Comment;
+import me.stupideme.zhihucolumn.model.Link;
+import me.stupideme.zhihucolumn.model.Meta;
+import me.stupideme.zhihucolumn.model.Topic;
 
 /**
  * Created by StupidL on 2016/8/22.
@@ -20,50 +18,42 @@ import me.stupideme.zhihucolumn.bean.Topic;
 
 public class ParseJsonUtil {
 
-    public static Column ParseJsonToColumn(String json) {
+    public static Column parseJsonToColumn(String json) {
         try {
             JSONObject root = new JSONObject(json);
-            return ParseJsonToColumn(root);
+            return parseJsonToColumn(root);
         } catch (JSONException e) {
             e.printStackTrace();
         }
         return null;
     }
 
-    public static Column ParseJsonToColumn(JSONObject root) throws JSONException {
+    public static Column parseJsonToColumn(JSONObject root) throws JSONException {
         Column column = new Column();
 
-        column.setFollowerCount(root.getInt("followersCount"));
+        //set name of column
+        column.setName(root.getString("name"));
+
+        //set author name of column
         JSONObject jsonCreator = root.getJSONObject("creator");
         Author creator = parseJsonToAuthor(jsonCreator);
-        column.setCreator(creator);
+        column.setAuthorName(creator.getName());
 
-        JSONArray topicsArray = root.getJSONArray("topics");
-        List<Topic> topics = new ArrayList<>();
-        for (int i = 0; i < topicsArray.length(); i++) {
-            JSONObject jsonTopic = topicsArray.getJSONObject(i);
-            Topic topic = parseJsonToTopic(jsonTopic);
-            topics.add(topic);
-        }
-        column.setTopics(topics);
-        column.setActivateState(root.getString("activateState"));
-        column.setHref(root.getString("href"));
-        column.setAcceptSubmission(root.getBoolean("acceptSubmission"));
-
+        //set avatar url
         JSONObject jsonAvatar = root.getJSONObject("avatar");
         Avatar avatar = parseJsonToAvatar(jsonAvatar);
-        column.setAvatar(avatar);
+        String id = avatar.getId();
+        String avatarUrl = "https://pic1.zhimg.com/" + id + "_m.jpg";
+        column.setAvatarUrl(avatarUrl);
 
-        column.setDescription(root.getString("description"));
-        column.setSlug(root.getString("slug"));
-        column.setName(root.getString("name"));
-        column.setUrl(root.getString("url"));
-        column.setActivateAuthorRequested(root.getString("activateAuthorRequested"));
-        column.setCommentPermission(root.getString("commentPermission"));
-        column.setFollowing(root.getBoolean("following"));
+        //set follower count
+        column.setFollowerCount(root.getInt("followersCount"));
+        //set post count
         column.setPostCount(root.getInt("postsCount"));
-        column.setCanPost(root.getBoolean("canPost"));
-
+        //set description
+        column.setDescription(root.getString("description"));
+        //set slug
+        column.setSlug(root.getString("slug"));
 
         return column;
     }
@@ -145,6 +135,7 @@ public class ParseJsonUtil {
         }
         return null;
     }
+
 
     public static Article parseJsonToArticle(JSONObject root) {
         Article article = new Article();

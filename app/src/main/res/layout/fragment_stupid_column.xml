@@ -5,7 +5,7 @@
     tools:context="me.stupideme.zhihucolumn.view.ColumnsActivity$ColumnsFragment">
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycler_all_columns"
+        android:id="@+id/recycler_columns"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 

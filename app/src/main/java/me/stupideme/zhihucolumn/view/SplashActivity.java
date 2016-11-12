@@ -1,4 +1,4 @@
-package me.stupideme.zhihucolumn.ui;
+package me.stupideme.zhihucolumn.view;
 
 import android.content.Context;
 import android.content.Intent;
@@ -8,7 +8,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;

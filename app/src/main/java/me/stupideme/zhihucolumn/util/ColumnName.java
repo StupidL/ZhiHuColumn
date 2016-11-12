@@ -7,6 +7,8 @@ package me.stupideme.zhihucolumn.util;
 public class ColumnName {
     public static final String BASE_URL = "http://zhuanlan.zhihu.com/api/columns/";
     public static final String[] NAMES = {"mj1997", "wooyun", "noseknows", "oh-hard", "plant", "poetry",
-            "green", "raymondwanglaw", "santiago", "miaoli", "MovieDaily", "Battlestar", "music"};
+            "green", "santiago", "MovieDaily", "Battlestar", "music", "koukou", "zackcici", "eatright", "zhuxiaobao",
+            "yangfan", "piboshi", "heibai", "olegvodnik", "urban-transit", "knowyourself", "lagavulin", "liyuqi",
+            "PatrickZhang"};
 
 }

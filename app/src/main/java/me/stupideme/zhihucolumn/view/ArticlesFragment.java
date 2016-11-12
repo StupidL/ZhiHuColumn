@@ -1,12 +1,10 @@
-package me.stupideme.zhihucolumn.ui;
+package me.stupideme.zhihucolumn.view;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Message;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -20,26 +18,23 @@ import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.Response;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import me.stupideme.zhihucolumn.App;
 import me.stupideme.zhihucolumn.R;
-import me.stupideme.zhihucolumn.bean.Article;
+import me.stupideme.zhihucolumn.model.Article;
 import me.stupideme.zhihucolumn.util.ColumnName;
 import me.stupideme.zhihucolumn.util.ParseJsonUtil;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 public class ArticlesFragment extends Fragment {
 
@@ -101,7 +96,7 @@ public class ArticlesFragment extends Fragment {
                     public void run() {
                         swipeRefreshLayout.setRefreshing(false);
                     }
-                }, 2000);
+                }, 3000);
                 swipeRefreshLayout.setRefreshing(true);
             }
         });
