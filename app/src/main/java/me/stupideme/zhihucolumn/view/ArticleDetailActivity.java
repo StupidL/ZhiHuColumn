@@ -2,9 +2,9 @@ package me.stupideme.zhihucolumn.view;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.webkit.WebView;
@@ -13,9 +13,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
-import me.stupideme.zhihucolumn.App;
 import me.stupideme.zhihucolumn.R;
-import me.stupideme.zhihucolumn.model.Article;
 
 public class ArticleDetailActivity extends AppCompatActivity {
 
@@ -34,7 +32,7 @@ public class ArticleDetailActivity extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ArticleDetailActivity.super.onBackPressed();
+                finish();
             }
         });
 
@@ -45,31 +43,15 @@ public class ArticleDetailActivity extends AppCompatActivity {
         WebView content = (WebView) findViewById(R.id.article_content);
 
         Intent intent = getIntent();
-        final int position = intent.getIntExtra("position", 0);
-        Article article = App.articlesList.get(position);
+        String article_title = intent.getStringExtra("title");
+        String article_imageUrl = intent.getStringExtra("imageUrl");
+        String article_author = intent.getStringExtra("author");
+        String article_published_time = intent.getStringExtra("published_time");
+        String article_content = intent.getStringExtra("content");
 
-        if (titleImage != null) {
-            Glide.with(this).load(article.getTitleImage()).into(titleImage);
-        }
-        if (fab != null) {
-            fab.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent i = new Intent(ArticleDetailActivity.this, ProfileActivity.class);
-                    i.putExtra("position", position);
-                    startActivity(i);
-                }
-            });
-        }
-
-        if (title != null) {
-            title.setText(article.getTitle());
-        }
-        if (timeAndAuthor != null) {
-            timeAndAuthor.setText(article.getAuthor().getName() + "  于  " + article.getPublishedTime().substring(0, 10));
-        }
-        if (content != null) {
-            content.loadDataWithBaseURL(null, article.getContent(), "text/html", "UTF-8", null);
-        }
+        title.setText(article_title);
+        Glide.with(this).load(article_imageUrl).into(titleImage);
+        timeAndAuthor.setText(article_author + "  于  " + article_published_time.substring(0, 10));
+        content.loadDataWithBaseURL(null, article_content, "text/html", "UTF-8", null);
     }
 }

@@ -13,8 +13,6 @@ import me.stupideme.zhihucolumn.model.Column;
  */
 
 public class App extends Application {
-    public volatile static List<Column> columnsList = new ArrayList<>();
-    public volatile static List<Article> articlesList = new ArrayList<>();
 
     @Override
     public void onCreate() {

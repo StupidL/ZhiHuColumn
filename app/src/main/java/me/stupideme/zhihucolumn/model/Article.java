@@ -8,49 +8,26 @@ import java.util.List;
  */
 
 public class Article {
-    private boolean isTitleImageFullScreen;
-    private String rating;
-    private String sourceUrl;
+
     private String publishedTime;
-    private Link links;
+
     private Author author;
+    private String authorName;
     private String url;
     private String title;
-    private String titleImage;
-    private Column column;
+    private String titleImageUrl;
+    //    private Column column;
     private String columnName;
-    private List<Topic> topics;
 
-    private String summary;
     private String content;
-    private String state;
-    private String href;
-    private Meta meta;
-    private String commentPermission;
-    private String snapshotUrl;
-    private boolean canComment;
-    private String slug;
+
+    //    private String slug;
     private int commentsCount;
     private int likesCount;
 
     public Article() {
     }
 
-    public String getRating() {
-        return rating;
-    }
-
-    public void setRating(String rating) {
-        this.rating = rating;
-    }
-
-    public String getSourceUrl() {
-        return sourceUrl;
-    }
-
-    public void setSourceUrl(String sourceUrl) {
-        this.sourceUrl = sourceUrl;
-    }
 
     public String getPublishedTime() {
         return publishedTime;
@@ -60,13 +37,6 @@ public class Article {
         this.publishedTime = publishedTime;
     }
 
-    public Link getLinks() {
-        return links;
-    }
-
-    public void setLinks(Link links) {
-        this.links = links;
-    }
 
     public Author getAuthor() {
         return author;
@@ -76,21 +46,6 @@ public class Article {
         this.author = author;
     }
 
-    public Column getColumn() {
-        return column;
-    }
-
-    public void setColumn(Column column) {
-        this.column = column;
-    }
-
-    public List<Topic> getTopics() {
-        return topics;
-    }
-
-    public void setTopics(List<Topic> topics) {
-        this.topics = topics;
-    }
 
     public String getTitle() {
         return title;
@@ -100,20 +55,12 @@ public class Article {
         this.title = title;
     }
 
-    public String getTitleImage() {
-        return titleImage;
+    public String getTitleImageUrl() {
+        return titleImageUrl;
     }
 
-    public void setTitleImage(String titleImage) {
-        this.titleImage = titleImage;
-    }
-
-    public String getSummary() {
-        return summary;
-    }
-
-    public void setSummary(String summary) {
-        this.summary = summary;
+    public void setTitleImageUrl(String titleImageUrl) {
+        this.titleImageUrl = titleImageUrl;
     }
 
     public String getContent() {
@@ -132,53 +79,6 @@ public class Article {
         this.url = url;
     }
 
-    public String getState() {
-        return state;
-    }
-
-    public void setState(String state) {
-        this.state = state;
-    }
-
-    public String getHref() {
-        return href;
-    }
-
-    public void setHref(String href) {
-        this.href = href;
-    }
-
-    public String getCommentPermission() {
-        return commentPermission;
-    }
-
-    public void setCommentPermission(String commentPermission) {
-        this.commentPermission = commentPermission;
-    }
-
-    public String getSnapshotUrl() {
-        return snapshotUrl;
-    }
-
-    public void setSnapshotUrl(String snapshotUrl) {
-        this.snapshotUrl = snapshotUrl;
-    }
-
-    public boolean isCanComment() {
-        return canComment;
-    }
-
-    public void setCanComment(boolean canComment) {
-        this.canComment = canComment;
-    }
-
-    public String getSlug() {
-        return slug;
-    }
-
-    public void setSlug(String slug) {
-        this.slug = slug;
-    }
 
     public int getCommentsCount() {
         return commentsCount;
@@ -196,27 +96,19 @@ public class Article {
         this.likesCount = likesCount;
     }
 
-    public Meta getMeta() {
-        return meta;
-    }
-
-    public void setMeta(Meta meta) {
-        this.meta = meta;
-    }
-
-    public boolean isTitleImageFullScreen() {
-        return isTitleImageFullScreen;
-    }
-
-    public void setTitleImageFullScreen(boolean titleImageFullScreen) {
-        isTitleImageFullScreen = titleImageFullScreen;
-    }
-
     public String getColumnName() {
         return columnName;
     }
 
     public void setColumnName(String columnName) {
         this.columnName = columnName;
+    }
+
+    public String getAuthorName() {
+        return authorName;
+    }
+
+    public void setAuthorName(String authorName) {
+        this.authorName = authorName;
     }
 }

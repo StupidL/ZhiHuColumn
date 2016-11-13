@@ -7,7 +7,7 @@
 
     <ImageView
         android:id="@+id/article_background"
-        android:layout_width="match_parent"
+        android:layout_width="500dp"
         android:layout_height="300dp"
         android:scaleType="fitXY"
         android:src="@drawable/background" />

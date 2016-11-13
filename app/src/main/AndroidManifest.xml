@@ -10,26 +10,15 @@
         android:icon="@mipmap/logo"
         android:label="@string/app_name"
         android:supportsRtl="true"
+        android:name=".App"
         android:theme="@style/MyAppTheme.NoActionBar">
         <meta-data
             android:name="me.stupideme.zhihucolumn.glide.StupidGlideModule"
             android:value="GlideModule" />
 
         <activity
-            android:name=".view.ColumnsActivity"
-            android:configChanges="orientation|keyboardHidden"
-            android:label="@string/app_name"
-            android:screenOrientation="portrait"
-            android:theme="@style/MyAppTheme.NoActionBar" />
-        <activity
-            android:name=".view.ArticlesActivity"
-            android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="portrait"
-            android:theme="@style/MyAppTheme.NoActionBar" />
-        <activity
             android:name=".view.ArticleDetailActivity"
             android:theme="@style/MyAppTheme.NoActionBar" />
-        <activity android:name=".view.ProfileActivity" />
         <activity android:name=".view.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -38,7 +27,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".view.StupidColumnActivity" />
-        <activity android:name=".view.StupidArticlesActivity"></activity>
+        <activity android:name=".view.StupidArticlesActivity" />
     </application>
 
 </manifest>

@@ -11,6 +11,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.signature.StringSignature;
 
 import java.util.List;
 
@@ -23,32 +25,41 @@ import me.stupideme.zhihucolumn.model.Column;
  * Created by StupidL on 2016/11/12.
  */
 
-public class StupidRecyclerAdapter extends RecyclerView.Adapter<StupidRecyclerAdapter.ViewHolder> {
+public class ColumnRecyclerAdapter extends RecyclerView.Adapter<ColumnRecyclerAdapter.ViewHolder> {
 
     private List<Column> mDataSet;
     private Context mContext;
 
-    public StupidRecyclerAdapter(Context context, List<Column> set) {
+    public ColumnRecyclerAdapter(Context context, List<Column> set) {
         mContext = context;
         mDataSet = set;
     }
 
     @Override
-    public StupidRecyclerAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ColumnRecyclerAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(mContext).inflate(R.layout.item_column, null);
         return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(StupidRecyclerAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(ColumnRecyclerAdapter.ViewHolder holder, int position) {
         final Column column = mDataSet.get(position);
         holder.title.setText(column.getName());
         holder.author.setText(column.getAuthorName());
-        holder.info.setText(column.getFollowerCount() + "关注 " + column.getPostCount() + " 文章");
+        holder.info.setText(column.getFollowerCount() + "关注\t" + column.getPostCount() + " 文章");
         holder.summary.setText(column.getDescription());
 
+        int width = holder.avatar.getWidth();
+        int height = holder.avatar.getHeight();
+
         //TODO: use cache
-        Glide.with(mContext).load(column.getAvatarUrl()).into(holder.avatar);
+        Glide.with(mContext)
+                .load(column.getAvatarUrl())
+                .signature(new StringSignature(column.getAvatarUrl()))
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+               // .override(width, height)
+                .crossFade()
+                .into(holder.avatar);
 
         holder.ll.setOnClickListener(new View.OnClickListener() {
             @Override

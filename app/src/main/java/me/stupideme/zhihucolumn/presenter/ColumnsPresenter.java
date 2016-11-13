@@ -1,13 +1,6 @@
 package me.stupideme.zhihucolumn.presenter;
 
-import android.os.Handler;
-import android.os.Message;
-
-import java.util.HashSet;
-import java.util.Set;
-
-import me.stupideme.zhihucolumn.Constants;
-import me.stupideme.zhihucolumn.model.Column;
+import me.stupideme.zhihucolumn.model.ColumnObserver;
 import me.stupideme.zhihucolumn.model.INetModel;
 import me.stupideme.zhihucolumn.model.NetModelImp;
 import me.stupideme.zhihucolumn.view.IColumnsView;
@@ -20,24 +13,11 @@ public class ColumnsPresenter {
 
     private INetModel iNetModel;
     private IColumnsView iColumnsView;
-    private Set<Column> mDataSet;
-    private Handler mHandler;
     private static ColumnsPresenter INSTANCE;
 
     private ColumnsPresenter(IColumnsView view) {
         iColumnsView = view;
-        mDataSet = new HashSet<>();
-        mHandler = new Handler() {
-            @Override
-            public void handleMessage(Message message) {
-                int what = message.what;
-                if (what == Constants.MESSAGE_COLUMN_RESULT) {
-                    mDataSet.add((Column) message.obj);
-                }
-            }
-        };
-        iNetModel = NetModelImp.getInstance(mHandler);
-
+        iNetModel = NetModelImp.getInstance();
     }
 
     public static ColumnsPresenter getInstance(IColumnsView view) {
@@ -50,16 +30,19 @@ public class ColumnsPresenter {
         return INSTANCE;
     }
 
+    public void attachColumnObserver(ColumnObserver observer) {
+        iNetModel.attach(observer);
+    }
+
+    public void detachColumnObserver(ColumnObserver observer) {
+        iNetModel.detach(observer);
+    }
+
     public void requestColumns(String[] names) {
+        iColumnsView.startColumnRefresh();
         for (String name : names)
             iNetModel.requestColumn(name);
+        iColumnsView.stopColumnRefresh();
     }
 
-    public void clearColumns(){
-        mDataSet.clear();
-    }
-
-    public Set<Column> getColumns() {
-        return mDataSet;
-    }
 }

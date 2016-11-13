@@ -83,7 +83,7 @@ public class SplashActivity extends AppCompatActivity {
         mRunnable = new Runnable() {
             @Override
             public void run() {
-                startActivity(new Intent(SplashActivity.this, ColumnsActivity.class));
+                startActivity(new Intent(SplashActivity.this, StupidColumnActivity.class));
                 SplashActivity.this.finish();
             }
         };

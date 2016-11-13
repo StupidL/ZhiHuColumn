@@ -1,15 +1,11 @@
 package me.stupideme.zhihucolumn.presenter;
 
-import android.os.Handler;
-import android.os.Message;
+import android.util.Log;
 
-import java.util.HashSet;
-import java.util.Set;
-
-import me.stupideme.zhihucolumn.Constants;
-import me.stupideme.zhihucolumn.model.Article;
+import me.stupideme.zhihucolumn.model.ArticleObserver;
 import me.stupideme.zhihucolumn.model.INetModel;
 import me.stupideme.zhihucolumn.model.NetModelImp;
+import me.stupideme.zhihucolumn.util.ColumnName;
 import me.stupideme.zhihucolumn.view.IArticlesView;
 
 /**
@@ -18,27 +14,14 @@ import me.stupideme.zhihucolumn.view.IArticlesView;
 
 public class ArticlesPresenter {
 
+    private static final String TAG = ArticlesPresenter.class.getSimpleName();
     private INetModel iNetModel;
     private IArticlesView iArticlesView;
-    private Set<Article> mDataSet;
     private static ArticlesPresenter INSTANCE;
-    private Handler mHandler;
 
     private ArticlesPresenter(IArticlesView view) {
         iArticlesView = view;
-        mDataSet = new HashSet<>();
-        mHandler = new Handler() {
-            @Override
-            public void handleMessage(Message message) {
-                int what = message.what;
-                if (what == Constants.MESSAGE_ARTICLE_RESULT) {
-                    Article article = (Article) message.obj;
-                    mDataSet.add(article);
-                }
-            }
-        };
-        iNetModel = NetModelImp.getInstance(mHandler);
-
+        iNetModel = NetModelImp.getInstance();
     }
 
     public static ArticlesPresenter getInstance(IArticlesView view) {
@@ -51,15 +34,22 @@ public class ArticlesPresenter {
         return INSTANCE;
     }
 
-    public void clearArticles() {
-        mDataSet.clear();
+
+    public void attachArticleObserver(ArticleObserver observer) {
+        iNetModel.attach(observer);
+    }
+
+
+    public void detachArticleObserver(ArticleObserver observer) {
+        iNetModel.detach(observer);
     }
 
     public void requestArticles(String name, int limit, int offset) {
-        iNetModel.requestArticles(name, limit, offset);
+        iArticlesView.startArticleRefresh();
+        String url = ColumnName.BASE_URL + name + "/posts?limit=" + limit + "&offset=" + offset;
+        Log.v(TAG, "url = " + url);
+        iNetModel.requestArticles(name, url);
+        iArticlesView.stopArticleRefresh();
     }
 
-    public Set<Article> getArticles() {
-        return mDataSet;
-    }
 }

@@ -140,37 +140,28 @@ public class ParseJsonUtil {
     public static Article parseJsonToArticle(JSONObject root) {
         Article article = new Article();
         try {
-            article.setTitleImageFullScreen(root.getBoolean("isTitleImageFullScreen"));
-            article.setRating(root.getString("rating"));
-            article.setTitleImage(root.getString("titleImage"));
-            JSONObject jsonLink = root.getJSONObject("links");
-            Link link = parseJsonToLink(jsonLink);
-            article.setLinks(link);
-//            List<Topic> topics = new ArrayList<>();
-//            JSONArray jsonTopics = root.getJSONArray("topics");
-//            for (int i = 0; i < jsonTopics.length(); i++) {
-//                JSONObject object = jsonTopics.getJSONObject(i);
-//                Topic topic = parseJsonToTopic(object);
-//                topics.add(topic);
-//            }
-//            article.setTopics(topics);
-            article.setHref(root.getString("href"));
+
+            //set author name
             JSONObject jsonAuthor = root.getJSONObject("author");
-            article.setAuthor(parseJsonToAuthor(jsonAuthor));
-            article.setContent(root.getString("content"));
-            article.setState(root.getString("state"));
-            article.setCanComment(root.getBoolean("canComment"));
-            article.setSnapshotUrl(root.getString("snapshotUrl"));
-            article.setSlug(root.getString("slug"));
-            article.setPublishedTime(root.getString("publishedTime"));
+            Author author = parseJsonToAuthor(jsonAuthor);
+            article.setAuthor(author);
+            article.setAuthorName(author.getName());
+
+            //set title
             article.setTitle(root.getString("title"));
+            //set url
             article.setUrl(root.getString("url"));
-            article.setSummary(root.getString("summary"));
-            JSONObject jsonMeta = root.getJSONObject("meta");
-            article.setMeta(parseJsonToMeta(jsonMeta));
-            article.setCommentPermission(root.getString("commentPermission"));
+            //set title image url
+            article.setTitleImageUrl(root.getString("titleImage"));
+            //set published time
+            article.setPublishedTime(root.getString("publishedTime"));
+            //set content
+            article.setContent(root.getString("content"));
+            //set comments count
             article.setCommentsCount(root.getInt("commentsCount"));
+            //set likes count
             article.setLikesCount(root.getInt("likesCount"));
+
 
         } catch (JSONException e) {
             e.printStackTrace();
